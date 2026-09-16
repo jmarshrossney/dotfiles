@@ -1,0 +1,45 @@
+# Allow UTF-8
+set input-meta on
+set output-meta on
+
+# Show extra file information when completing
+set visible-stats on
+
+# Colours for different completion types
+set colored-stats on
+
+# Disable terminal bell during completion
+set bell-style none
+
+# Ignore case when completing
+set completion-ignore-case on
+
+# Don't duplicate text after cursor when autocompleting
+set skip-completed-text on
+
+# Perform partial (common) completion on first Tab, and only start
+# cycling on second Tab
+set menu-complete-display-prefix on
+
+# Cycle through autocompletion matches with Tab & Shift-Tab
+"\t": menu-complete
+"\e[Z": menu-complete-backward
+
+# NOTE: prefer off for next two options and instead use Ctrl-Space for
+# showing possible completions.
+
+# Tab once to see possible completions when ambiguous
+set show-all-if-ambiguous off
+
+# Tab once to see possible completions in absence of changes
+set show-all-if-unmodified off
+
+# Ctrl-Space shows all possible completions
+"\C-@": possible-completions
+
+# Show all autocomplete results at once
+set page-completions off
+
+# Number of possible completions at which to query showing full list
+set completion-query-items 100
+

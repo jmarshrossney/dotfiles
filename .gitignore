@@ -13,12 +13,13 @@
 
 # Stow packages
 !/alacritty/
+!/bash/
 !/claude/
 !/direnv/
 !/git/
 !/nvim/
 !/papis/
-!/shell/
+!/readline/
 
 # Never add these, whatever the allowlist says above.
 .credentials.json
