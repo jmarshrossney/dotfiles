@@ -1,0 +1,9 @@
+# ~/.claude holds runtime state next to the tracked config.
+# Be careful about what gets added.
+
+# Deny the directory
+.claude/*
+
+# Explicitly name files to track
+!.claude/CLAUDE.md
+!.claude/settings.json
