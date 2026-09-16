@@ -1,0 +1,30 @@
+# This is an allowlist, not a blocklist!
+# Everything at the root is ignored except what's explicitly named below.
+# Rationale: much harder to add something by accident.
+
+/*
+
+# Repo furniture
+!/.gitignore
+!/.pre-commit-config.yaml
+!/LICENSE
+!/README.md
+!/justfile
+
+# Stow packages
+!/alacritty/
+!/claude/
+!/direnv/
+!/git/
+!/nvim/
+!/papis/
+!/shell/
+
+# Never add these, whatever the allowlist says above.
+.credentials.json
+.env
+*.key
+*.pem
+id_rsa
+id_ed25519
+.netrc
