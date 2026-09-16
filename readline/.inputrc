@@ -42,4 +42,3 @@ set page-completions off
 
 # Number of possible completions at which to query showing full list
 set completion-query-items 100
-

@@ -1,6 +1,6 @@
 # Shell Configuration
 
-My *very simple* shell configuration. 
+My *very simple* shell configuration.
 
 Currently Bash only.
 

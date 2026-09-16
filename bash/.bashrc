@@ -188,7 +188,7 @@ function set_bash_prompt() {
   set_python_venv
 
   PS1="
-${GREEN}\u@\h${RESET}:${YELLOW}\w${RESET}${PS1_BRANCH}${PS1_DEVBOX}${PS1_VENV} 
+${GREEN}\u@\h${RESET}:${YELLOW}\w${RESET}${PS1_BRANCH}${PS1_DEVBOX}${PS1_VENV}
 ${PROMPT_SYMBOL} "
 
 }
