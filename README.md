@@ -52,6 +52,13 @@ For example:
 - For `nvim`, assuming `~/.config/nvim` doesn't exist stow would produce a symlink to the whole directory `nvim -> ~/.config/nvim`.
 - For `claude`, where a couple of tracked files sit in a directory full of state the tool writes to, stow only links the individual files (`CLAUDE.md`).
 
+### Write a per-package README
+
+Just put it at the top level of the package, as `<package>/README.md`.
+Stow's built-in ignore list includes `^/README.*`, so it won't be linked (confirm with `just check <package>`).
+
+If you add a `.stow-local-ignore` to the package or a global `~/.stow-global-ignore`, make sure you include the default list including `README` etc (since this replaces rather than extends the default list).
+
 ### Not publish secrets
 
 - `.gitignore` is an allowlist. Everything at the root is ignored unless explicitly named.
