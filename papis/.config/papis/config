@@ -1,0 +1,109 @@
+[settings]
+default-library = library
+
+[library]
+dir = /home/joe/github.com/jmarshrossney/library
+
+# --- tools -----------------------------------------------------------------
+opentool = xdg-open
+editor = nvim
+
+# --- version control -------------------------------------------------------
+# Commit each document as it is added. The library is a git repo.
+use-git = True
+
+# --- formatter -------------------------------------------------------------
+# The `stopwords` formatter comes from the local papis-stopwords plugin at
+# ~/github.com/jmarshrossney/papis-stopwords, installed with
+# `uv tool install papis --with-editable <that path>`. It is a strict superset
+# of the built-in `python` formatter: every pattern below would work unchanged
+# under `formatter = python`, minus the `N` flag. This is NOT the same as
+# switching to `formatter = jinja2`, which silently breaks the 14 default
+# format patterns papis ships that are not overridden here.
+formatter = stopwords
+
+# --- identifiers -----------------------------------------------------------
+# Citation key: first author + year + the first three *meaningful* title words,
+# e.g. DelDebbio2021_Efficient_Modeling_Trivializing.
+# This is the single identifier for a source everywhere — BibTeX, Hayagriva,
+# Obsidian notes, docstring references. Plain AuthorYear collides (three LIGO
+# 2016 papers all render as Abbott2016, and papis does NOT deduplicate refs).
+# Refs are stamped at add time: changing this later does not rewrite existing
+# entries, and any key that changes breaks citations already written.
+# `ref-word-separator =` (empty) is what collapses "Del Debbio" -> "DelDebbio"
+# and "Marsh Rossney" -> "MarshRossney". It also strips any literal underscore,
+# so the separators in ref-format are backslash-escaped to survive cleanup.
+# `!t:0.3N'\_'S` = title-case, drop stopwords, take the first three words and
+# join them with an escaped underscore. Without the `N` the keys fill up with
+# "Of" and "The". Joining inside the one slice, rather than using three
+# single-word slices glued together in the pattern, is what stops a short title
+# leaving a dangling underscore (`LeCun2015_Deep_Learning_`).
+ref-word-separator =
+ref-format = {doc[author_list][0][family]}{doc[year]}\_{doc[title]!t:0.3N'\_'S}
+
+# Words dropped by the `N` flag. Set to [] to disable without touching
+# ref-format. Defaults to this list if unset; spelled out here so it is
+# visible, since changing it changes every future citation key.
+format-stopwords = ["a", "an", "and", "as", "at", "but", "by", "for", "from", "in", "into", "is", "of", "on", "or", "the", "to", "via", "with", "within"]
+
+# Keep the document folder byte-identical to the ref. Without both of these,
+# papis lowercases and kebab-cases the folder name and it drifts from the key.
+doc-paths-lowercase = False
+doc-paths-word-separator = _
+
+# Never fetch a PDF as a side effect of adding a reference. The library is a
+# metadata store; attachments are opted into, not accumulated.
+#
+# Two reasons. For --from doi the download is nearly always wasted -- most
+# publishers do not expose a file to the importer (SIAM and Elsevier 403), so
+# it costs a round-trip and an error line per add. For --from arxiv it does
+# succeed, which is the case this setting actually exists to stop: `files:` is
+# committed but *.pdf is gitignored, so every attachment writes a reference
+# that resolves on one machine and reports a `doctor files` error on every
+# other. That is fine for attachments chosen deliberately and corrosive for
+# ones accumulated silently.
+#
+# Re-fetching PDFs on a new machine is a deliberate bulk operation, not
+# something that should happen while resolving a citation. Override per
+# invocation with `--download-files` when the file is actually wanted.
+add-download-files = False
+
+# Name attached files after the citation key too, so folder, note, ref and PDF
+# all agree. Left empty (the default), papis keeps whatever the download or the
+# publisher called the file -- e.g. "Peierls_1936_On_Ising_s_Model_final_v2_.pdf".
+# A second file for the same document gets a "-a" suffix, then "-b", etc.
+add-file-name = {doc[ref]}
+
+# Name document folders after the citation key, so folder, note and ref all
+# agree. Without this, papis falls back to opaque hash folders.
+add-folder-name = {doc[ref]}
+
+# --- notes -----------------------------------------------------------------
+# One markdown note per paper, named after its citation key. Notes are original
+# content and are tracked in git.
+notes-name = {doc[ref]}.md
+notes-template = /home/joe/.config/papis/note-template.md
+
+# --- metadata hygiene ------------------------------------------------------
+# Run the doctor checks on every newly added document.
+auto-doctor = True
+
+# Fields dropped from BibTeX export. `abstract` is the important one: Crossref
+# returns raw JATS XML, hundreds of lines per entry.
+bibtex-ignore-keys = ["abstract", "author_list", "language", "publisher"]
+
+# Write accented characters as UTF-8 (Calderón) rather than LaTeX escapes
+# (Calder{\'o}n). Correct for Typst, Quarto/pandoc and modern LaTeX engines.
+bibtex-unicode = True
+
+multiple-authors-format = {au[family]}, {au[given]}
+
+# --- rendered references ---------------------------------------------------
+# Used by `papis export --format csl` for docstrings and prose contexts.
+# Requires citeproc-py. Working styles: harvard1, ieee, nature, vancouver.
+# apa, chicago-author-date and american-physics-society crash inside citeproc-py.
+csl-style = harvard1
+
+# --- misc ------------------------------------------------------------------
+database-backend = papis
+citations-file-name = citations.yaml
