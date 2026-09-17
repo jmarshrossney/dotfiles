@@ -1,0 +1,24 @@
+# ~/.config/git/config
+# Identity lives in the per-forge files included below, which are untracked.
+# Without a match, user.useConfigOnly makes git refuse to commit rather than
+# inventing an identity from the hostname.
+
+[includeIf "gitdir:~/github.com/"]
+	path = ~/.config/git/identity_github
+[includeIf "gitdir:~/codeberg.org/"]
+	path = ~/.config/git/identity_codeberg
+
+[user]
+	useConfigOnly = true
+
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
+
+[init]
+	defaultBranch = main

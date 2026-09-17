@@ -1,0 +1,10 @@
+# ~/.config/git may hold machine-specific identity files alongside the tracked
+# ones. Deny the directory, name what gets published.
+.config/git/*
+
+# Explicitly name files to track
+!.config/git/config
+!.config/git/allowed_signers
+!.config/git/ignore
+!.config/git/identity_github
+!.config/git/identity_codeberg

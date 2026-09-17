@@ -1,0 +1,8 @@
+# Global gitignore, at the path git uses when core.excludesFile is unset.
+
+# direnv
+.direnv
+.envrc
+
+# Claude Code per-machine settings
+**/.claude/settings.local.json

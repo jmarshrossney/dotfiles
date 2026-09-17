@@ -1,0 +1,5 @@
+# Deny everything
+.ssh/*
+
+# Track config only
+!.ssh/config

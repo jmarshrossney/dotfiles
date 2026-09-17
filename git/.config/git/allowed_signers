@@ -1,0 +1,12 @@
+# Keys trusted to sign commits, one per identity per machine.
+# Format: <email> <key type> <key>   (public halves only)
+
+# github, desktop
+17361029+jmarshrossney@users.noreply.github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFmcP9mSt+5Y6kcYy6rkDYEs4pmTIrrxYjOrsSWyMNx
+# github, work laptop
+17361029+jmarshrossney@users.noreply.github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiQ0YceDeOoq5dZERPQd3ckfUSsqnUFa1rPk3cGuNHm
+
+# codeberg, desktop
+float@noreply.codeberg.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJT9utALVtcCuteHzvTguwk/OKRk5QTyv3EKIchkmyNQ
+# codeberg, laptop
+float@noreply.codeberg.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMtcmoWc1eZ1G6T/Xw0sifWdzbDShu97vt2Rj+c+OdP5

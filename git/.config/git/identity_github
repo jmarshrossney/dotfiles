@@ -1,0 +1,5 @@
+# Identity for repos under ~/github.com/
+[user]
+	name = jmarshrossney
+	email = 17361029+jmarshrossney@users.noreply.github.com
+	signingKey = ~/.ssh/id_ed25519_github.pub

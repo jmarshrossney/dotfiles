@@ -20,12 +20,13 @@
 !/nvim/
 !/papis/
 !/readline/
+!/ssh/
 
 # Never add these, whatever the allowlist says above.
 .credentials.json
 .env
 *.key
 *.pem
-id_rsa
-id_ed25519
+id_rsa*
+id_ed25519*
 .netrc

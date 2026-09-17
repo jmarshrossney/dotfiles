@@ -1,0 +1,5 @@
+# Identity for repos under ~/codeberg.org/
+[user]
+	name = float
+	email = float@noreply.codeberg.org
+	signingKey = ~/.ssh/id_ed25519_codeberg.pub
