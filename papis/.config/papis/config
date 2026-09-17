@@ -2,7 +2,7 @@
 default-library = library
 
 [library]
-dir = /home/joe/github.com/jmarshrossney/library
+dir = ~/github.com/jmarshrossney/library
 
 # --- tools -----------------------------------------------------------------
 opentool = xdg-open
@@ -82,7 +82,7 @@ add-folder-name = {doc[ref]}
 # One markdown note per paper, named after its citation key. Notes are original
 # content and are tracked in git.
 notes-name = {doc[ref]}.md
-notes-template = /home/joe/.config/papis/note-template.md
+notes-template = ~/.config/papis/note-template.md
 
 # --- metadata hygiene ------------------------------------------------------
 # Run the doctor checks on every newly added document.
