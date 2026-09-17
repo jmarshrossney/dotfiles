@@ -43,7 +43,7 @@ The second command is interactive — pick Alacritty from the list.
 bash ~/.config/alacritty/toggle_theme.sh
 ```
 
-The script copies one of the two theme files over the gitignored `themes/current.toml`.
+The script copies one of the two theme files over the gitignored `themes/current.toml`, and the matching file over zathura's `themes/current` when that config is installed.
 `live_config_reload` watches imported files too, so open windows follow immediately and nothing tracked by git is touched.
 The exception is a change to the import list itself, which windows opened beforehand ignore until `alacritty.toml` is modified or they are restarted.
 

@@ -1,0 +1,12 @@
+# Colours live in themes/current, an untracked copy of one of the theme files,
+# written by ~/.config/alacritty/toggle_theme.sh so that zathura follows the
+# terminal. Zathura reads its config at startup only, so a toggle applies to
+# the next document you open.
+#
+# Within a session, Ctrl+R inverts the document itself (recolor), which is the
+# setting that matters for reading a PDF in the dark.
+
+set recolor-keephue             "true"
+set selection-clipboard         "clipboard"
+
+include themes/current
