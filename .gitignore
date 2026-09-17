@@ -10,6 +10,8 @@
 !/LICENSE
 !/README.md
 !/justfile
+!/AGENTS.md
+!/CLAUDE.md
 
 # Stow packages
 !/alacritty/
@@ -21,7 +23,6 @@
 !/papis/
 !/readline/
 !/ssh/
-!/zathura/
 !/uv/
 !/zathura/
 
