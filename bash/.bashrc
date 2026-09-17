@@ -1,3 +1,31 @@
+# ---- PATH ---------------------------------------------------------------- #
+# Above the interactivity guard on purpose. On Linux alacritty execs $SHELL
+# directly, with no -l and no '-' on argv[0] (the login-shell handling in
+# alacritty_terminal/src/tty/unix.rs is macOS-only), so a terminal here is a
+# non-login shell and .bash_profile is never read. Below the guard, PATH would
+# also be missing from every non-interactive shell.
+#
+# prepend_path skips directories that do not exist and entries already on PATH,
+# so re-sourcing this file cannot grow PATH without bound.
+prepend_path() {
+  [ -d "$1" ] || return 0
+  case ":${PATH}:" in
+  *":$1:"*) ;;
+  *) PATH="$1${PATH:+:$PATH}" ;;
+  esac
+}
+
+# Lowest priority first: the last prepend wins.
+# ~/.rustup and ~/.cargo are rustup's own defaults, so RUSTUP_HOME and
+# CARGO_HOME only need setting to move them somewhere else.
+prepend_path "$HOME/.cargo/bin"
+prepend_path "$HOME/.juliaup/bin"
+prepend_path "$HOME/.bun/bin"
+prepend_path "$HOME/.opencode/bin"
+prepend_path "$HOME/.local/bin"
+
+export PATH
+
 # If not running interactively, don't do anything
 case $- in
 *i*) ;;
@@ -27,36 +55,6 @@ shopt -s no_empty_cmd_completion
 # Set default editor to Neovim
 export EDITOR=nvim
 
-# Location of Neovim binary
-# See: https://github.com/neovim/neovim/blob/master/INSTALL.md#linux
-# PATH="/opt/nvim-linux64/bin:$PATH"
-PATH="/usr/local/bin:$PATH"
-
-# Set location for Ruby gems
-export GEM_HOME="$HOME/.gems"
-export GEM_PATH="$HOME/.gems:/usr/lib/ruby/gems"
-PATH="$GEM_HOME/bin:$PATH"
-
-# Use default paths for Rust installation
-export RUSTUP_HOME="$HOME/.rustup"
-export CARGO_HOME="$HOME/.cargo"
-PATH="$CARGO_HOME/bin:$PATH"
-
-# Prepend Go binary to PATH
-PATH="/usr/local/go/bin:$PATH"
-
-# Prepend cuda binaries to PATH
-PATH="/usr/local/cuda/bin:$PATH"
-
-PATH="$HOME/.juliaup/bin:$PATH"
-
-PATH="$HOME/.bun/bin:$PATH"
-
-# Prepend user binaries to PATH
-PATH=$HOME/.local/bin:$PATH
-
-export PATH
-
 alias ls='ls --color=auto'
 alias l='ls'
 alias la='ls -A'
@@ -79,21 +77,15 @@ alias gb='git branch'
 alias gd='git diff'
 alias gl='git log --oneline --graph --decorate'
 
-alias ssh='ssh -X'
 alias hist='history'
 alias du='du --human-readable --total'
 alias df='df --human-readable --total'
 # alias diff='diff -u'
 
-alias vi='vim'
-alias vin='vim'
-alias bim='vim'
-# use neovim if installed
-[ -x "$(command -v nvim)" ] && alias vim='nvim'
+alias vi='nvim'
+alias vim='nvim'
 
 alias za='zathura'
-
-alias zen='zensical'
 
 # Prompt largely based on https://github.com/spindi/setup/blob/master/bash/prompt.sh
 
@@ -176,8 +168,6 @@ function set_python_venv() {
   fi
 }
 
-# TODO: conda environment, maybe, active container, also maybe
-
 function set_bash_prompt() {
   # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
   # return value of the last command.
@@ -196,14 +186,11 @@ ${PROMPT_SYMBOL} "
 # Tell bash to execute this function just before displaying its prompt.
 PROMPT_COMMAND=set_bash_prompt
 
-# ---- Everything below this line is added during the installation of packages ---- #
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - bash)"
-
-# opencode
-export PATH=/home/joe/.opencode/bin:$PATH
+# Completions. Ubuntu ships this enabled in /etc/bash.bashrc but commented out,
+# so sourcing it here saves editing a root-owned file on every new machine.
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+fi
 
 # --- Hook direnv --- #
 eval "$(direnv hook bash)"

@@ -1,25 +1,21 @@
-# Shell Configuration
+# Bash
 
-My *very simple* shell configuration.
+Bash configuration: `.bashrc`, `.bash_profile`.
+`.inputrc` is the separate `readline` package.
 
-Currently Bash only.
+Link it with `just link bash` from the repository root.
 
-First, back up your current config files:
+## Where things go
 
-```sh
-mkdir shell_config_backup
-mv ~/.bashrc ~/.bash_profile ~/.inputrc shell_config_backup/
-```
+`.bashrc` holds everything, including PATH.
+That is deliberate rather than the conventional split, because alacritty starts a non-login interactive shell, which never reads `.bash_profile`.
+Under a Wayland-only session `~/.profile` may not be read either, so `.bashrc` is the only file that reliably runs in a terminal.
 
-Then clone this repo and symlink the config files to your home directory:
+PATH is built above the interactivity guard, since the guard returns early for non-interactive shells and would otherwise leave them with no PATH at all.
+`prepend_path` skips directories that do not exist and entries already present, so sourcing `.bashrc` twice does not duplicate anything.
 
-```sh
-git clone https://codeberg.org/float/shell-config.git
-ln -s shell-config/bashrc ~/.bashrc
-ln -s shell-config/bash_profile ~/.bash_profile
-ln -s shell-config/inputrc ~/.inputrc
-```
+`.bash_profile` sources `/etc/profile` and then `.bashrc`, in that order, because `/etc/profile` resets PATH.
 
-## Notes
+## Machine-specific settings
 
-- I needed to uncomment the shell completions block in `/etc/bash.bashrc` to get completions in an interactive shell.
+`~/.bashrc.local` is sourced last if it exists, and is never committed.
