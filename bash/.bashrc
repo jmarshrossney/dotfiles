@@ -1,10 +1,3 @@
-# ---- PATH ---------------------------------------------------------------- #
-# Above the interactivity guard on purpose. On Linux alacritty execs $SHELL
-# directly, with no -l and no '-' on argv[0] (the login-shell handling in
-# alacritty_terminal/src/tty/unix.rs is macOS-only), so a terminal here is a
-# non-login shell and .bash_profile is never read. Below the guard, PATH would
-# also be missing from every non-interactive shell.
-#
 # prepend_path skips directories that do not exist and entries already on PATH,
 # so re-sourcing this file cannot grow PATH without bound.
 prepend_path() {
@@ -16,14 +9,14 @@ prepend_path() {
 }
 
 # Lowest priority first: the last prepend wins.
-# ~/.rustup and ~/.cargo are rustup's own defaults, so RUSTUP_HOME and
-# CARGO_HOME only need setting to move them somewhere else.
 prepend_path "$HOME/.cargo/bin"
 prepend_path "$HOME/.juliaup/bin"
 prepend_path "$HOME/.bun/bin"
 prepend_path "$HOME/.opencode/bin"
 prepend_path "$HOME/.local/bin"
 
+# Above the interactivity guard on purpose. Below the guard, PATH would
+# also be missing from every non-interactive shell.
 export PATH
 
 # If not running interactively, don't do anything
