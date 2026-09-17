@@ -21,6 +21,7 @@
 !/papis/
 !/readline/
 !/ssh/
+!/uv/
 
 # Never add these, whatever the allowlist says above.
 .credentials.json
