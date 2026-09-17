@@ -16,3 +16,14 @@ vim.g.rmd_include_latex = 0
 -- use # or <!-- --> comments; with no R chunks in the file it's just useless
 -- per-move overhead.
 vim.g.rmd_dynamic_comments = 0
+
+-- The python3 provider needs an interpreter that can import pynvim, which is
+-- not the interpreter of whatever project venv happens to be active. `uv tool
+-- install pynvim` provides exactly that: ~/.local/bin/pynvim-python is a shim
+-- onto uv's own tool environment, so project environments stay clean.
+-- ubuntu-setup's python.sh installs it; the guard keeps :checkhealth quiet on a
+-- machine where that has not run yet.
+local pynvim = vim.fn.expand("~/.local/bin/pynvim-python")
+if vim.uv.fs_stat(pynvim) then
+  vim.g.python3_host_prog = pynvim
+end
