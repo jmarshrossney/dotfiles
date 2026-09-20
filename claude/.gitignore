@@ -7,3 +7,4 @@
 # Explicitly name files to track
 !.claude/CLAUDE.md
 !.claude/settings.json
+!.claude/hooks/

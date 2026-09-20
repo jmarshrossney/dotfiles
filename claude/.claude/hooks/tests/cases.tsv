@@ -1,0 +1,20 @@
+ask	git push Inrx HEAD:fix/passthrough-html-escaping
+ask	git push inrx-fork my-branch
+ask	git push git@github.com:Someone/repo.git HEAD
+ask	git push https://github.com/Someone/repo.git main
+ask	cd /repo && git push upstream main
+ask	git -C /some/path push contributor branch
+allow	git push origin main
+allow	git push origin HEAD --force-with-lease
+allow	git push -u origin fix/branch
+allow	git push --dry-run origin main
+allow	git status
+allow	git log --oneline -20
+ask	gh pr comment 34 --body x
+ask	gh issue comment 35 -F d.md
+ask	gh pr review 34 --approve
+ask	gh pr merge 34 --merge
+allow	gh pr view 34
+allow	gh pr diff 34
+allow	gh issue list
+allow	gh api repos/:owner/:repo/pulls/34 --jq .title

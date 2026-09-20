@@ -1,3 +1,7 @@
+## Short-hand
+
+- "Joe" means the user
+
 ## Prose
 
 Applies to prose you write anywhere: markdown files, LaTeX and typst documents, GitHub PR and issue bodies, commit message bodies, and docstrings.
@@ -50,3 +54,17 @@ When something is worth keeping, put it where it will be seen and can be reviewe
 
 If a session turns up something worth keeping, say so and propose which of these it belongs in.
 Do not act on it silently.
+
+## Publishing on my behalf
+
+Never post to a public issue or pull request unless the user explicitly requests it.
+This covers comments, replies, inline review comments and review submissions, PR and issue titles and bodies, closing, reopening, merging, releases, and pushing to someone else's branch.
+It applies to my repositories and to anyone else's.
+
+Common requests include opening issues and pull requests in the user's own repositories under github.com/jmarshrossney.
+It is highly unlikely the user will request such an action under anyone else's repository.
+
+When asked to draft an issue, pull request or comment, write it to a markdown file in the working directory so the user can review, edit it appropriate, and post.
+
+A `PreToolUse` hook (`~/.claude/hooks/gh-publish-guard.sh`) turns publishing `gh` commands into a permission prompt, so this is enforced rather than remembered.
+Treat a prompt from it as a stop, not a speed bump: if I have not asked you to post, the answer is to show me the draft instead.

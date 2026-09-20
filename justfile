@@ -47,6 +47,10 @@ link-all:
         just link "$pkg"
     done
 
+# Check that the Claude publishing guard still stops what it should
+test-hooks:
+    {{root}}/claude/.claude/hooks/tests/run.py
+
 # Run pre-commit hooks over the whole repo rather than just staged changes
 pre-commit:
     pre-commit run --all-files
@@ -59,5 +63,5 @@ ls-files:
 ls-ignored:
     git ls-files --others --ignored --exclude-standard
 
-# Run ls-files, ls-ignored, and pre-commit
-audit: ls-files ls-ignored pre-commit
+# Run ls-files, ls-ignored, test-hooks, and pre-commit
+audit: ls-files ls-ignored test-hooks pre-commit
