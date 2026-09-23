@@ -27,3 +27,9 @@ local pynvim = vim.fn.expand("~/.local/bin/pynvim-python")
 if vim.uv.fs_stat(pynvim) then
   vim.g.python3_host_prog = pynvim
 end
+
+-- No plugins here use the node, perl or ruby remote-plugin hosts. Disabling them
+-- skips the host lookup and keeps :checkhealth free of warnings about them.
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
