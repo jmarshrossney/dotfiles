@@ -1,0 +1,65 @@
+home := home_directory()
+backup_remote := "desktop:/media/Internal_HDD/Backup"
+backup_mount := home / "mnt/backup"
+
+# Default: list global justfile commands
+_:
+    @just -g --list
+
+# Update packages, firmware and tools
+update: update-packages update-firmware update-tools
+
+# Update apt, snap and flatpak packages
+update-packages:
+    sudo apt update
+    sudo apt full-upgrade
+    sudo apt autoremove --purge
+    sudo apt autoclean
+    sudo snap refresh
+    flatpak update
+    @if [ -f /var/run/reboot-required ]; then echo "Reboot required"; fi
+
+# Install firmware updates (fwupd-refresh.timer keeps the metadata current)
+update-firmware:
+    # Exit code 2 means there was nothing to update
+    fwupdmgr update || [ $? -eq 2 ]
+
+# Update uv, uv-managed tools and Rust toolchains
+update-tools:
+    uv self update
+    uv tool upgrade --all
+    rustup update
+
+# List repos under ~/github.com and ~/codeberg.org with uncommitted, unpushed or stashed work
+check-repos:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{home}}
+    find github.com codeberg.org -maxdepth 4 -name .git -printf '%h\n' 2>/dev/null | sort |
+    while read -r repo; do
+        problems=()
+        [ -n "$(git -C "$repo" status --porcelain)" ] && problems+=("dirty")
+        stashes=$(git -C "$repo" stash list | wc -l)
+        [ "$stashes" -gt 0 ] && problems+=("$stashes stashed")
+        while IFS=$'\t' read -r branch upstream track; do
+            if [ -z "$upstream" ]; then
+                problems+=("$branch has no upstream")
+            elif [[ "$track" == *ahead* ]]; then
+                problems+=("$branch $track")
+            fi
+        done < <(git -C "$repo" for-each-ref refs/heads \
+            --format='%(refname:short)%09%(upstream:short)%09%(upstream:track,nobracket)')
+        if [ ${#problems[@]} -gt 0 ]; then
+            joined=$(printf '%s, ' "${problems[@]}")
+            echo "$repo: ${joined%, }"
+        fi
+    done
+
+# Mount the backup drive on the desktop over sshfs
+mount-backup:
+    mkdir -p {{backup_mount}}
+    mountpoint -q {{backup_mount}} || sshfs {{backup_remote}} {{backup_mount}} -o reconnect,ServerAliveInterval=15
+
+# Unmount the backup drive
+umount-backup:
+    fusermount3 -u {{backup_mount}}
