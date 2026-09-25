@@ -7,10 +7,6 @@
 Applies to prose you write anywhere: markdown files, LaTeX and typst documents, GitHub PR and issue bodies, commit message bodies, and docstrings.
 Not to code.
 
-**Invoke the `unslop` skill before writing prose, and before replying to me.**
-That covers the files listed above and your replies in the terminal, so in practice it means once at the start of almost every session.
-Read it before writing, not as a cleanup pass afterwards.
-
 **One sentence per line, in prose that will be rendered.**
 Break the line after each sentence rather than wrapping at a column.
 A sentence runs as long as it runs.

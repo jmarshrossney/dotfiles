@@ -1,5 +1,20 @@
 {
-  "model": "opus",
+  "model": "opus[1m]",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/gh-publish-guard.sh",
+            "timeout": 10,
+            "statusMessage": "Checking for publishing commands"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
@@ -27,20 +42,5 @@
   },
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
-  "theme": "auto",
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/gh-publish-guard.sh",
-            "timeout": 10,
-            "statusMessage": "Checking for publishing commands"
-          }
-        ]
-      }
-    ]
-  }
+  "theme": "auto"
 }
