@@ -65,3 +65,7 @@ ls-ignored:
 
 # Run ls-files, ls-ignored, test-hooks, and pre-commit
 audit: ls-files ls-ignored test-hooks pre-commit
+
+# Apply the GNOME settings in the dconf package
+dconf-load:
+    dconf load /org/gnome/ < {{root}}/dconf/.config/dconf/gnome.ini

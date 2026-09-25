@@ -17,6 +17,7 @@
 !/alacritty/
 !/bash/
 !/claude/
+!/dconf/
 !/direnv/
 !/git/
 !/just/
@@ -25,6 +26,7 @@
 !/readline/
 !/ssh/
 !/uv/
+!/xdg/
 !/zathura/
 
 # Never add these, whatever the allowlist says above.
@@ -35,3 +37,5 @@
 id_rsa*
 id_ed25519*
 .netrc
+# dconf's binary database, which dconf writes next to gnome.ini
+dconf/.config/dconf/user
