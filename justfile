@@ -63,8 +63,8 @@ ls-files:
 ls-ignored:
     git ls-files --others --ignored --exclude-standard
 
-# Run ls-files, ls-ignored, test-hooks, and pre-commit
-audit: ls-files ls-ignored test-hooks pre-commit
+# Run ls-files, test-hooks, and pre-commit
+audit: ls-files test-hooks pre-commit
 
 # Apply the GNOME settings in the dconf package
 dconf-load:
