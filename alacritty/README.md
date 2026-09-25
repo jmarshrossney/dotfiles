@@ -15,16 +15,6 @@ Pick a starting theme, which creates the untracked `themes/current.toml` that `a
 bash ~/.config/alacritty/toggle_theme.sh
 ```
 
-Set Alacritty as the default terminal (Debian/Ubuntu):
-
-```sh
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(which alacritty)" 50
-sudo update-alternatives --config x-terminal-emulator
-```
-
-The second command is interactive — pick Alacritty from the list.
-`50` is the priority, which only matters when the alternative is left in auto mode.
-
 ### Font installation
 
 1. Download and unzip (e.g.) `FiraCode Nerd Font` from https://www.nerdfonts.com/font-downloads
