@@ -17,7 +17,7 @@ dynamic_padding = true
 opacity = 1.0
 padding.x = 4
 padding.y = 0
-decorations = "Full"
+decorations = "None"
 
 [cursor]
 style.shape = "Beam"
