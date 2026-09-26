@@ -51,6 +51,34 @@ When something is worth keeping, put it where it will be seen and can be reviewe
 If a session turns up something worth keeping, say so and propose which of these it belongs in.
 Do not act on it silently.
 
+## Project dashboard
+
+`~/github.com/jmarshrossney/dashboard` is a private repository for maintaining an live view over Joe's software and research projects that can be synced between machines.
+
+Each project has a status note, `dashboard/<project>/status.md`, which should be updated at the end of the work day.
+Plans and code reviews should be written to markdown files under `dashboard/<project>/`.
+ 
+Read `dashboard/AGENTS.md` for the rules and reasoning before writing.
+ 
+## Software vs research projects
+
+Software projects & research projects call for different workflows (currently being worked out).
+
+### Software projects 
+Usually a Python package with documentation, usually in a public repository.
+
+The code is always the single source of truth - derive understanding from the code and flag inconsistent or imprecise documentation.
+Detailed docstrings are welcome, but avoid extensive explanatory in-line comments and prefer short, information-dense comments only when absolutely necessary.
+
+A design decision too large for a commit message is not a note and does not go there.
+It belongs in `docs/adr/` in the project repository itself, public, where the people affected by it can read it.
+
+### Research projects
+
+Usually a collection of uv scripts and/or marimo notebooks with a small Python package for shared functions.
+Usually in a private repository.
+Usually contains typst files (`log.typ` - append-only log; `report.typ` - curated report).
+
 ## Publishing on my behalf
 
 Never post to a public issue or pull request unless the user explicitly requests it.
