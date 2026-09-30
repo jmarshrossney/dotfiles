@@ -57,14 +57,14 @@ Do not act on it silently.
 
 Each project has a status note, `dashboard/<project>/status.md`, which should be updated at the end of the work day.
 Plans and code reviews should be written to markdown files under `dashboard/<project>/`.
- 
+
 Read `dashboard/AGENTS.md` for the rules and reasoning before writing.
- 
+
 ## Software vs research projects
 
 Software projects & research projects call for different workflows (currently being worked out).
 
-### Software projects 
+### Software projects
 Usually a Python package with documentation, usually in a public repository.
 
 The code is always the single source of truth - derive understanding from the code and flag inconsistent or imprecise documentation.
