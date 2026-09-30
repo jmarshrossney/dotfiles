@@ -37,4 +37,11 @@ return {
       },
     },
   },
+
+  -- Without tex-fmt installed, conform falls back to texlab's formatter,
+  -- latexindent, which takes ~1.5s per save on a long document.
+  {
+    "mason-org/mason.nvim",
+    opts = { ensure_installed = { "tex-fmt" } },
+  },
 }
