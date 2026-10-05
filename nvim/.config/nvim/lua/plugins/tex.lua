@@ -11,11 +11,26 @@ return {
   -- texlab renders referenced float captions as inlay hints, which shifts the
   -- line and disrupts cursor navigation. Disable them by default for tex
   -- filetypes; they can still be toggled back on per-buffer with `<leader>uh`.
+  --
+  -- With no conform formatter for bib, conform falls back to texlab, whose
+  -- BibTeX formatter rewrites the whole file on save (wrapping, field
+  -- alignment, entry-type case). Disable it so edits to JabRef-managed .bib
+  -- files stay as small diffs. If a bib formatter is wanted later, conform
+  -- has a builtin `bibtex-tidy` that can be configured to match JabRef style.
   {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = {
         exclude = { "vue", "tex", "plaintex", "bib" },
+      },
+      servers = {
+        texlab = {
+          settings = {
+            texlab = {
+              bibtexFormatter = "none",
+            },
+          },
+        },
       },
     },
   },
