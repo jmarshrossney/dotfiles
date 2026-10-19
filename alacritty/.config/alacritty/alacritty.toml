@@ -23,6 +23,12 @@ decorations = "full"
 style.shape = "Beam"
 style.blinking = "Always"
 
+[terminal]
+# Lets nvim read the clipboard via OSC 52 (see nvim lua/config/options.lua).
+# NOTE: any program writing to the terminal, including over ssh, can read the
+# clipboard with this enabled. The default is "OnlyCopy".
+osc52 = "CopyPaste"
+
 [selection]
 save_to_clipboard = true
 

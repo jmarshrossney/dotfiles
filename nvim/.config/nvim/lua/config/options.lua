@@ -33,3 +33,17 @@ end
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
+
+-- Use the terminal's OSC 52 clipboard rather than wl-clipboard. GNOME lacks the
+-- data-control protocol, so wl-paste must grab focus via a transient surface
+-- and, when that fails, blocks nvim indefinitely. Paste needs
+-- `terminal.osc52 = "CopyPaste"` in alacritty.toml.
+-- NOTE: that setting lets any program writing to the terminal read the system
+-- clipboard, including programs on remote hosts reached over ssh. Revert to
+-- explicit "+ registers if that becomes a concern.
+local osc52 = require("vim.ui.clipboard.osc52")
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+  paste = { ["+"] = osc52.paste("+"), ["*"] = osc52.paste("*") },
+}
